@@ -1,26 +1,204 @@
 @import "tailwindcss";
 
+/* Dark mode driven by a `.dark` class (next-themes) rather than the media query */
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ *
+ * LuxEstate — Design Tokens
+ * Palette: paper / ink / stone (neutrals) · azure (accent) · gold (premium)
+ * Authored in OKLCH for perceptually-even, high-end gradients.
+ * ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.75rem;
+
+  /* Surfaces */
+  --background: oklch(0.994 0.002 250);
+  --foreground: oklch(0.19 0.02 262);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.19 0.02 262);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.19 0.02 262);
+
+  /* Neutral scale (stone) */
+  --muted: oklch(0.968 0.004 250);
+  --muted-foreground: oklch(0.5 0.018 258);
+  --secondary: oklch(0.965 0.005 250);
+  --secondary-foreground: oklch(0.24 0.02 262);
+
+  /* Brand — azure (deep blue) */
+  --primary: oklch(0.48 0.13 258);
+  --primary-foreground: oklch(0.99 0.003 250);
+
+  /* Premium — gold (discreet) */
+  --gold: oklch(0.79 0.1 84);
+  --gold-foreground: oklch(0.28 0.04 80);
+
+  /* Accents / feedback */
+  --accent: oklch(0.96 0.006 250);
+  --accent-foreground: oklch(0.24 0.02 262);
+  --destructive: oklch(0.58 0.21 25);
+  --destructive-foreground: oklch(0.99 0.003 250);
+  --success: oklch(0.62 0.14 155);
+
+  /* Lines & focus */
+  --border: oklch(0.92 0.005 255);
+  --input: oklch(0.9 0.006 255);
+  --ring: oklch(0.48 0.13 258);
+}
+
+.dark {
+  --background: oklch(0.17 0.012 262);
+  --foreground: oklch(0.96 0.005 250);
+  --card: oklch(0.2 0.014 262);
+  --card-foreground: oklch(0.96 0.005 250);
+  --popover: oklch(0.2 0.014 262);
+  --popover-foreground: oklch(0.96 0.005 250);
+
+  --muted: oklch(0.24 0.014 262);
+  --muted-foreground: oklch(0.68 0.014 255);
+  --secondary: oklch(0.24 0.014 262);
+  --secondary-foreground: oklch(0.96 0.005 250);
+
+  --primary: oklch(0.7 0.12 255);
+  --primary-foreground: oklch(0.17 0.012 262);
+
+  --gold: oklch(0.82 0.1 84);
+  --gold-foreground: oklch(0.19 0.02 262);
+
+  --accent: oklch(0.26 0.016 262);
+  --accent-foreground: oklch(0.96 0.005 250);
+  --destructive: oklch(0.66 0.19 25);
+  --destructive-foreground: oklch(0.99 0.003 250);
+  --success: oklch(0.7 0.14 158);
+
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 12%);
+  --ring: oklch(0.7 0.12 255);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-fraunces);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 12px);
+
+  --shadow-soft: 0 1px 2px oklch(0.2 0.02 262 / 0.04), 0 8px 24px oklch(0.2 0.02 262 / 0.06);
+  --shadow-lift: 0 2px 6px oklch(0.2 0.02 262 / 0.08), 0 24px 48px oklch(0.2 0.02 262 / 0.12);
+
+  --animate-accordion-down: accordion-down 0.3s ease-out;
+  --animate-accordion-up: accordion-up 0.3s ease-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 22%, transparent);
+  }
+
+  /* Refined focus ring */
+  :focus-visible {
+    outline: 2px solid var(--color-ring);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: var(--font-serif), ui-serif, Georgia, serif;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Premium gold gradient text for accents */
+  .text-gold-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--gold-foreground) 0%,
+      var(--gold) 55%,
+      color-mix(in oklch, var(--gold) 70%, white) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, var(--border) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  .bg-radial-fade {
+    background: radial-gradient(
+      ellipse 80% 60% at 50% 0%,
+      color-mix(in oklch, var(--primary) 14%, transparent),
+      transparent 70%
+    );
+  }
 }
