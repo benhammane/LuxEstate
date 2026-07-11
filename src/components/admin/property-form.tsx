@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Loader2, ArrowLeft } from "lucide-react";
@@ -40,7 +40,7 @@ export function PropertyForm({ existing }: { existing?: Property }) {
     control,
     formState: { errors, isSubmitting },
   } = useForm<PropertyFormValues>({
-    resolver: zodResolver(propertyFormSchema),
+        resolver: zodResolver(propertyFormSchema) as Resolver<PropertyFormValues>,
     defaultValues: existing
       ? {
           ...existing,
