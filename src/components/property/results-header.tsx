@@ -14,8 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { SortKey } from "@/types/property";
 
-const SORT_LABELS: Record<string, string> = {
+const SORT_LABELS: Record<SortKey, string> = {
   recent: "Plus récents",
   price_asc: "Prix croissant",
   price_desc: "Prix décroissant",
