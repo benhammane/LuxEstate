@@ -1,6 +1,7 @@
 import NextAuth, { type DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
+import type { Provider } from "next-auth/providers";
 import { verifyCredentials, type UserRole } from "@/lib/auth/users";
 import { loginSchema } from "@/schemas/auth";
 
@@ -13,7 +14,7 @@ declare module "next-auth" {
   }
 }
 
-const providers = [
+const providers: Provider[] = [
   Credentials({
     credentials: {
       email: { label: "Email", type: "email" },
